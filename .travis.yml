@@ -1,8 +1,11 @@
-language: javascript
-
-
+language: node_js
+node_js:
+  - "node"
+  - "7"
+  - "6"
 before_script:
-  npm install babel-cli babel-core babel-loader babel-preset-es2015 bootstrap jquery webpack
-
+  - npm install -g babel-cli babel-core babel-loader babel-preset-es2015
+  - npm install -g bootstrap jquery
+  - npm install -g webpack
 script:
-  webpack
+  - npm build
