@@ -1,0 +1,8 @@
+language: javascript
+
+
+before_script:
+  npm install babel-cli babel-core babel-loader babel-preset-es2015 bootstrap jquery webpack
+
+script:
+  webpack
