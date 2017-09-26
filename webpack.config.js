@@ -1,12 +1,16 @@
 var webpack = require('webpack');
 var path = require('path');
+var jasmineWebpackPlugin = require('jasmine-webpack-plugin');
 
 
 module.exports = {
-  entry: './src/app.js',
+  entry: {
+    bundle: './src/app.js',
+    spec: './spec/spec.js'
+  },
   output: {
 	    path: path.resolve(__dirname, 'dist'),
-	    filename: 'bundle.js',
+	    filename: '[name].js',
   },
 
   module: {
@@ -22,4 +26,8 @@ module.exports = {
 
   	]
   },
+
+  plugins: [
+    new jasmineWebpackPlugin(),
+  ]
 }

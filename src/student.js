@@ -1,4 +1,4 @@
-import $ from 'jquery';
+//import $ from 'jquery';
 
 function clone(obj) {
     // Handle the 3 simple types, and null or undefined
@@ -87,7 +87,6 @@ class Student {
   }
 
   addGrade(grade){
-    console.log('adding');
     this.grades.push(Student.convertLetters(grade));
   }
 
@@ -109,23 +108,19 @@ class Student {
 
   GPABestCase(numberOfCoursesLeft){
     let arr = clone(this.grades);
-    console.log(arr);
     for(let i=0; i<numberOfCoursesLeft; i++)
       arr.push({grade:'A', hours:3.00});
-    console.log(arr);
     return this.calculateGPA(arr);
 
   }
   GPAWorstCase(numberOfCoursesLeft){
     let arr = clone(this.grades);
-    console.log(arr);
     for(let i=0; i<numberOfCoursesLeft; i++)
       arr.push({grade:'D', hours:3.00});
-    console.log(arr);
     return this.calculateGPA(arr);
   }
   GPAAverageCase(numberOfCoursesLeft){
-
+    return (this.GPABestCase(numberOfCoursesLeft) + this.GPAWorstCase(numberOfCoursesLeft)) /2;
   }
 }
 

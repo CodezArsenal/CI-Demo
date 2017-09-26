@@ -60,11 +60,289 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+//import $ from 'jquery';
+
+function clone(obj) {
+  // Handle the 3 simple types, and null or undefined
+  if (null == obj || "object" != (typeof obj === "undefined" ? "undefined" : _typeof(obj))) return obj;
+
+  // Handle Date
+  if (obj instanceof Date) {
+    var copy = new Date();
+    copy.setTime(obj.getTime());
+    return copy;
+  }
+
+  // Handle Array
+  if (obj instanceof Array) {
+    var copy = [];
+    for (var i = 0, len = obj.length; i < len; i++) {
+      copy[i] = clone(obj[i]);
+    }
+    return copy;
+  }
+
+  // Handle Object
+  if (obj instanceof Object) {
+    var copy = {};
+    for (var attr in obj) {
+      if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+    }
+    return copy;
+  }
+
+  throw new Error("Unable to copy obj! Its type isn't supported.");
+}
+
+var Student = function () {
+  function Student(id, name, age, grades) {
+    _classCallCheck(this, Student);
+
+    this.id = id;
+    this.name = name;
+    this.age = age;
+    this.grades = grades;
+  }
+
+  _createClass(Student, [{
+    key: "addGrade",
+    value: function addGrade(grade) {
+      this.grades.push(Student.convertLetters(grade));
+    }
+  }, {
+    key: "calculateGPA",
+    value: function calculateGPA(gradesArr) {
+      var grades = gradesArr || this.grades;
+      var arr = [];
+      var totalHours = 0;
+      for (var i = 0; i < grades.length; i++) {
+        if (grades[i].grade != undefined) {
+          //if taken
+          arr.push(Student.convertLetters(grades[i].grade) * grades[i].hours);
+          totalHours += grades[i].hours;
+        }
+      }
+      var totalGrades = arr.reduce(function (sum, value) {
+        return sum + value;
+      }, 0);
+      return totalGrades / totalHours;
+    }
+  }, {
+    key: "GPABestCase",
+    value: function GPABestCase(numberOfCoursesLeft) {
+      var arr = clone(this.grades);
+      for (var i = 0; i < numberOfCoursesLeft; i++) {
+        arr.push({ grade: 'A', hours: 3.00 });
+      }return this.calculateGPA(arr);
+    }
+  }, {
+    key: "GPAWorstCase",
+    value: function GPAWorstCase(numberOfCoursesLeft) {
+      var arr = clone(this.grades);
+      for (var i = 0; i < numberOfCoursesLeft; i++) {
+        arr.push({ grade: 'D', hours: 3.00 });
+      }return this.calculateGPA(arr);
+    }
+  }, {
+    key: "GPAAverageCase",
+    value: function GPAAverageCase(numberOfCoursesLeft) {
+      return (this.GPABestCase(numberOfCoursesLeft) + this.GPAWorstCase(numberOfCoursesLeft)) / 2;
+    }
+  }], [{
+    key: "newStudent",
+    value: function newStudent(id, name, age) {
+      return new Student(id, name, age);
+    }
+  }, {
+    key: "convertLetters",
+    value: function convertLetters(letter) {
+      //case what if input is number
+      //based on ADU
+      switch (letter) {
+        case 'A':
+        case 'a':
+          return 4.0;
+          break;
+        case 'B+':
+        case 'b+':
+          return 3.5;
+          break;
+        case 'B':
+        case 'b':
+          return 3.0;
+          break;
+        case 'C+':
+        case 'c+':
+          return 2.5;
+          break;
+        case 'C':
+        case 'c':
+          return 2.0;
+          break;
+        case 'D+':
+        case 'd+':
+          return 1.5;
+          break;
+        case 'D':
+        case 'd':
+          return 1.0;
+          break;
+        case 'F':
+        case 'f':
+          return 0;
+          break;
+        default:
+          alert('grade input is invalid');
+
+      }
+    }
+  }]);
+
+  return Student;
+}();
+
+exports.default = Student;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var grades = [{ code: 'ARL100',
+  semester: '2014-2015 WIN',
+  grade: 'A',
+  hours: 3.00 }, { code: 'CEN490',
+  semester: '2017-2018 FALL',
+  hours: 3.00 }, { code: 'CRT301',
+  semester: '2015-2016 FALL',
+  grade: 'B',
+  hours: 2.00 }, { code: 'CSC201',
+  semester: '2015-2016 FALL',
+  grade: 'A',
+  hours: 3.00 }, { code: 'CSC202',
+  semester: '2015-2016 SPR',
+  grade: 'A',
+  hours: 3.00 }, { code: 'CSC305',
+  semester: '2016-2017 FALL',
+  grade: 'D',
+  hours: 3.00 }, { code: 'CSC301',
+  semester: '2016-2017 FALL',
+  grade: 'C+',
+  hours: 3.00 }, { code: 'CSC302',
+  semester: '2016-2017 FALL',
+  grade: 'A',
+  hours: 3.00 }, { code: 'ITE305',
+  semester: '2016-2017 FALL',
+  grade: 'C+',
+  hours: 3.00 }, { code: 'ITE402',
+  semester: '2016-2017 SPR',
+  grade: 'B',
+  hours: 3.00 }, { code: 'CIS401',
+  semester: '2016-2017 SPR',
+  grade: 'A',
+  hours: 3.00 }, { code: 'CSC401',
+  semester: '2017-2018 FALL',
+  hours: 3.00 }, { code: 'ITE414',
+  semester: '2016-2017 FALL',
+  grade: 'B',
+  hours: 3.00 }, { code: 'ITE409',
+  semester: '2017-2018 FALL',
+  hours: 3.00 }, { code: 'CIS408',
+  semester: '2016-2017 SPR',
+  grade: 'B+',
+  hours: 3.00 }, { code: 'CSC308',
+  semester: '2016-2017 SPR',
+  grade: 'C+',
+  hours: 3.00 }, { code: 'CSC311',
+  semester: '2015-2016 SPR',
+  grade: 'B',
+  hours: 3.00 }, { code: 'CSC307',
+  semester: '2015-2016 WIN',
+  grade: 'A',
+  hours: 3.00 }, { code: 'ITE408',
+  semester: '2017-2018 FALL',
+  hours: 3.00 }, { code: 'ITE390',
+  semester: '2016-2017 SPR',
+  grade: 'C+',
+  hours: 3.00 }, { code: 'ITE422',
+  semester: '2016-2017 WIN',
+  grade: 'B+',
+  hours: 3.00 }, { code: 'ITE421',
+  semester: '2017-2018 FALL',
+  hours: 3.00 }, { code: 'ITE499A',
+  semester: '2017-2018 FALL',
+  hours: 3.00 }, { code: 'ENG100',
+  semester: '2014-2015 WIN',
+  grade: 'B',
+  hours: 3.00 }, { code: 'ENG200',
+  semester: '2014-2015 SPR',
+  grade: 'B+',
+  hours: 3.00 }, { code: 'ENG305',
+  semester: '2015-2016 FALL',
+  grade: 'B+',
+  hours: 3.00 }, { code: 'ISL100',
+  semester: '2014-2015 SPR',
+  grade: 'A',
+  hours: 3.00 }, { code: 'MTT101',
+  semester: '2014-2015 SPR',
+  grade: 'C',
+  hours: 3.00 }, { code: 'MTT102',
+  semester: '2015-2016 FALL',
+  grade: 'C',
+  hours: 3.00 }, { code: 'MKT200',
+  semester: '2015-2016 SPR',
+  grade: 'C',
+  hours: 3.00 }, { code: 'MAC400',
+  semester: '2015-2016 SPR',
+  grade: 'A',
+  hours: 3.00 }, { code: 'NSC201',
+  semester: '2015-2016 FALL',
+  grade: 'B',
+  hours: 3.00 }, { code: 'PSY201',
+  semester: '2016-2017 SUM A',
+  grade: 'B',
+  hours: 3.00 }, { code: 'SOC201',
+  semester: '2014-2015 SPR',
+  grade: 'B+',
+  hours: 3.00 }, { code: 'STT201',
+  semester: '2015-2016 SPR',
+  grade: 'C',
+  hours: 3.00 }, { code: 'STT100',
+  semester: '2014-2015 SPR',
+  grade: 'A',
+  hours: 3.00 }, { code: 'UNS102',
+  semester: '2014-2015 WIN',
+  grade: 'B+',
+  hours: 1.00 }];
+exports.default = grades;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10324,21 +10602,21 @@ return jQuery;
 
 
 /***/ }),
-/* 1 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _student = __webpack_require__(2);
+var _student = __webpack_require__(0);
 
 var _student2 = _interopRequireDefault(_student);
 
-var _grades = __webpack_require__(3);
+var _grades = __webpack_require__(1);
 
 var _grades2 = _interopRequireDefault(_grades);
 
-var _jquery = __webpack_require__(0);
+var _jquery = __webpack_require__(2);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -10349,296 +10627,12 @@ function signIn() {}
 function signUp() {}
 
 var student = new _student2.default('1052966', 'Omar', 22, _grades2.default);
-console.dir(student);
-console.log(student.grades);
+//console.dir(student);
+//console.log(student.grades);
 console.log(student.calculateGPA());
 console.log(student.GPABestCase(12));
 console.log(student.GPAWorstCase(12));
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _jquery = __webpack_require__(0);
-
-var _jquery2 = _interopRequireDefault(_jquery);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function clone(obj) {
-  // Handle the 3 simple types, and null or undefined
-  if (null == obj || "object" != (typeof obj === "undefined" ? "undefined" : _typeof(obj))) return obj;
-
-  // Handle Date
-  if (obj instanceof Date) {
-    var copy = new Date();
-    copy.setTime(obj.getTime());
-    return copy;
-  }
-
-  // Handle Array
-  if (obj instanceof Array) {
-    var copy = [];
-    for (var i = 0, len = obj.length; i < len; i++) {
-      copy[i] = clone(obj[i]);
-    }
-    return copy;
-  }
-
-  // Handle Object
-  if (obj instanceof Object) {
-    var copy = {};
-    for (var attr in obj) {
-      if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
-    }
-    return copy;
-  }
-
-  throw new Error("Unable to copy obj! Its type isn't supported.");
-}
-
-var Student = function () {
-  function Student(id, name, age, grades) {
-    _classCallCheck(this, Student);
-
-    this.id = id;
-    this.name = name;
-    this.age = age;
-    this.grades = grades;
-  }
-
-  _createClass(Student, [{
-    key: "addGrade",
-    value: function addGrade(grade) {
-      console.log('adding');
-      this.grades.push(Student.convertLetters(grade));
-    }
-  }, {
-    key: "calculateGPA",
-    value: function calculateGPA(gradesArr) {
-      var grades = gradesArr || this.grades;
-      var arr = [];
-      var totalHours = 0;
-      for (var i = 0; i < grades.length; i++) {
-        if (grades[i].grade != undefined) {
-          //if taken
-          arr.push(Student.convertLetters(grades[i].grade) * grades[i].hours);
-          totalHours += grades[i].hours;
-        }
-      }
-      var totalGrades = arr.reduce(function (sum, value) {
-        return sum + value;
-      }, 0);
-      return totalGrades / totalHours;
-    }
-  }, {
-    key: "GPABestCase",
-    value: function GPABestCase(numberOfCoursesLeft) {
-      var arr = clone(this.grades);
-      console.log(arr);
-      for (var i = 0; i < numberOfCoursesLeft; i++) {
-        arr.push({ grade: 'A', hours: 3.00 });
-      }console.log(arr);
-      return this.calculateGPA(arr);
-    }
-  }, {
-    key: "GPAWorstCase",
-    value: function GPAWorstCase(numberOfCoursesLeft) {
-      var arr = clone(this.grades);
-      console.log(arr);
-      for (var i = 0; i < numberOfCoursesLeft; i++) {
-        arr.push({ grade: 'D', hours: 3.00 });
-      }console.log(arr);
-      return this.calculateGPA(arr);
-    }
-  }, {
-    key: "GPAAverageCase",
-    value: function GPAAverageCase(numberOfCoursesLeft) {}
-  }], [{
-    key: "newStudent",
-    value: function newStudent(id, name, age) {
-      return new Student(id, name, age);
-    }
-  }, {
-    key: "convertLetters",
-    value: function convertLetters(letter) {
-      //case what if input is number
-      //based on ADU
-      switch (letter) {
-        case 'A':
-        case 'a':
-          return 4.0;
-          break;
-        case 'B+':
-        case 'b+':
-          return 3.5;
-          break;
-        case 'B':
-        case 'b':
-          return 3.0;
-          break;
-        case 'C+':
-        case 'c+':
-          return 2.5;
-          break;
-        case 'C':
-        case 'c':
-          return 2.0;
-          break;
-        case 'D+':
-        case 'd+':
-          return 1.5;
-          break;
-        case 'D':
-        case 'd':
-          return 1.0;
-          break;
-        case 'F':
-        case 'f':
-          return 0;
-          break;
-        default:
-          alert('grade input is invalid');
-
-      }
-    }
-  }]);
-
-  return Student;
-}();
-
-exports.default = Student;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var grades = [{ code: 'ARL100',
-  semester: '2014-2015 WIN',
-  grade: 'A',
-  hours: 3.00 }, { code: 'CEN490',
-  semester: '2017-2018 FALL',
-  hours: 3.00 }, { code: 'CRT301',
-  semester: '2015-2016 FALL',
-  grade: 'B',
-  hours: 2.00 }, { code: 'CSC201',
-  semester: '2015-2016 FALL',
-  grade: 'A',
-  hours: 3.00 }, { code: 'CSC202',
-  semester: '2015-2016 SPR',
-  grade: 'A',
-  hours: 3.00 }, { code: 'CSC305',
-  semester: '2016-2017 FALL',
-  grade: 'D',
-  hours: 3.00 }, { code: 'CSC301',
-  semester: '2016-2017 FALL',
-  grade: 'C+',
-  hours: 3.00 }, { code: 'CSC302',
-  semester: '2016-2017 FALL',
-  grade: 'A',
-  hours: 3.00 }, { code: 'ITE305',
-  semester: '2016-2017 FALL',
-  grade: 'C+',
-  hours: 3.00 }, { code: 'ITE402',
-  semester: '2016-2017 SPR',
-  grade: 'B',
-  hours: 3.00 }, { code: 'CIS401',
-  semester: '2016-2017 SPR',
-  grade: 'A',
-  hours: 3.00 }, { code: 'CSC401',
-  semester: '2017-2018 FALL',
-  hours: 3.00 }, { code: 'ITE414',
-  semester: '2016-2017 FALL',
-  grade: 'B',
-  hours: 3.00 }, { code: 'ITE409',
-  semester: '2017-2018 FALL',
-  hours: 3.00 }, { code: 'CIS408',
-  semester: '2016-2017 SPR',
-  grade: 'B+',
-  hours: 3.00 }, { code: 'CSC308',
-  semester: '2016-2017 SPR',
-  grade: 'C+',
-  hours: 3.00 }, { code: 'CSC311',
-  semester: '2015-2016 SPR',
-  grade: 'B',
-  hours: 3.00 }, { code: 'CSC307',
-  semester: '2015-2016 WIN',
-  grade: 'A',
-  hours: 3.00 }, { code: 'ITE408',
-  semester: '2017-2018 FALL',
-  hours: 3.00 }, { code: 'ITE390',
-  semester: '2016-2017 SPR',
-  grade: 'C+',
-  hours: 3.00 }, { code: 'ITE422',
-  semester: '2016-2017 WIN',
-  grade: 'B+',
-  hours: 3.00 }, { code: 'ITE421',
-  semester: '2017-2018 FALL',
-  hours: 3.00 }, { code: 'ITE499A',
-  semester: '2017-2018 FALL',
-  hours: 3.00 }, { code: 'ENG100',
-  semester: '2014-2015 WIN',
-  grade: 'B',
-  hours: 3.00 }, { code: 'ENG200',
-  semester: '2014-2015 SPR',
-  grade: 'B+',
-  hours: 3.00 }, { code: 'ENG305',
-  semester: '2015-2016 FALL',
-  grade: 'B+',
-  hours: 3.00 }, { code: 'ISL100',
-  semester: '2014-2015 SPR',
-  grade: 'A',
-  hours: 3.00 }, { code: 'MTT101',
-  semester: '2014-2015 SPR',
-  grade: 'C',
-  hours: 3.00 }, { code: 'MTT102',
-  semester: '2015-2016 FALL',
-  grade: 'C',
-  hours: 3.00 }, { code: 'MKT200',
-  semester: '2015-2016 SPR',
-  grade: 'C',
-  hours: 3.00 }, { code: 'MAC400',
-  semester: '2015-2016 SPR',
-  grade: 'A',
-  hours: 3.00 }, { code: 'NSC201',
-  semester: '2015-2016 FALL',
-  grade: 'B',
-  hours: 3.00 }, { code: 'PSY201',
-  semester: '2016-2017 SUM A',
-  grade: 'B',
-  hours: 3.00 }, { code: 'SOC201',
-  semester: '2014-2015 SPR',
-  grade: 'B+',
-  hours: 3.00 }, { code: 'STT201',
-  semester: '2015-2016 SPR',
-  grade: 'C',
-  hours: 3.00 }, { code: 'STT100',
-  semester: '2014-2015 SPR',
-  grade: 'A',
-  hours: 3.00 }, { code: 'UNS102',
-  semester: '2014-2015 WIN',
-  grade: 'B+',
-  hours: 1.00 }];
-exports.default = grades;
+console.log(student.GPAAverageCase(12));
 
 /***/ })
 /******/ ]);
