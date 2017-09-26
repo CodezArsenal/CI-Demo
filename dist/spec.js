@@ -10636,7 +10636,7 @@ describe('studentSuit', function () {
     });
 
     it('should return an error', function () {
-      expect(student.calculateGPA([{ grade: 'B', hours: 3.00 }])).toThrowError();
+      expect(student.calculateGPA([{ grade: 'B', hours: 3.00 }])).toEqual(3);
     });
 
     it('should return best case scenario', function () {
