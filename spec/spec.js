@@ -14,13 +14,13 @@ describe('studentSuit',function(){
       expect(student.calculateGPA()).toEqual(3.1222222222222222);
     });
 
-    it('should return an error'), function(){
-      expect(student.calculateGPA([])).toBeGreaterThan(3);
-    }
+    it('should return an error', function(){
+      expect(student.calculateGPA([{grade: 'B', hours:3.00}])).toThrowError();
+    });
 
     it('should return best case scenario', function(){
       expect(student.GPABestCase()).toBeGreaterThan(3);
-    })
+    });
 
   });
 

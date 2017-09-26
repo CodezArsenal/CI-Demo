@@ -212,7 +212,7 @@ var Student = function () {
           return 0;
           break;
         default:
-          alert('grade input is invalid');
+          throw new { message: "Invalid input" }();
 
       }
     }
