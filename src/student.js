@@ -124,7 +124,7 @@ class Student {
   }
 
   static Multiply(x,y){
-    return x*y;
+    return 'x*y';
   }
 
 
