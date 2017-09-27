@@ -22,7 +22,9 @@ describe('studentSuit',function(){
       expect(student.GPABestCase()).toBeGreaterThan(3);
     });
 
+    it('should retrun multiply', function(){
+      expect(Student.Multiply(3,5)).toEqual(15);
+    });
   });
-
 
 });

@@ -122,6 +122,12 @@ class Student {
   GPAAverageCase(numberOfCoursesLeft){
     return (this.GPABestCase(numberOfCoursesLeft) + this.GPAWorstCase(numberOfCoursesLeft)) /2;
   }
+
+  static Multiply(x,y){
+    return x*y;
+  }
+
+
 }
 
 

@@ -216,6 +216,11 @@ var Student = function () {
 
       }
     }
+  }, {
+    key: "Multiply",
+    value: function Multiply(x, y) {
+      return x * y;
+    }
   }]);
 
   return Student;

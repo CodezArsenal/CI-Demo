@@ -216,6 +216,11 @@ var Student = function () {
 
       }
     }
+  }, {
+    key: "Multiply",
+    value: function Multiply(x, y) {
+      return x * y;
+    }
   }]);
 
   return Student;
@@ -10641,6 +10646,10 @@ describe('studentSuit', function () {
 
     it('should return best case scenario', function () {
       expect(student.GPABestCase()).toBeGreaterThan(3);
+    });
+
+    it('should retrun multiply', function () {
+      expect(_student2.default.Multiply(3, 5)).toEqual(15);
     });
   });
 });
